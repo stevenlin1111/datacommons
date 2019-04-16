@@ -121,6 +121,7 @@ class Client(object):
 
     # Format and return the result as a DCFrame
     header = response.get('header', [])
+    header = [h.lstrip('?') for h in header]
     rows = response.get('rows', [])
     result_dict = OrderedDict([(header, []) for header in header])
     for row in rows:
