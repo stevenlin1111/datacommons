@@ -23,11 +23,10 @@ from __future__ import division
 from __future__ import print_function
 
 from collections import defaultdict
-import json
-from itertools import product
 from . import _auth
 from . import utils
 import pandas as pd
+import json
 
 # Database paths
 _BIG_QUERY_PATH = 'google.com:datcom-store-dev.dc_store_v3'
