@@ -23,7 +23,6 @@ from __future__ import print_function
 from .datacommons import DCFrame
 from . import utils
 
-
 _PLACES = {
   'City': 'County',
   'CensusTract': 'County',
@@ -32,10 +31,10 @@ _PLACES = {
   'Country': 'Continent'
 }
 
-def PlacesExtension(dc_table):
+def PlacesExtension(frame):
   """ The DataCommons places API extension. """
-  dc_table.get_places_in = get_places_in
-  return dc_table
+  frame.get_places_in = get_places_in
+  return frame
 
 def get_places_in(self, seed_col_name, new_col_name, new_col_type, rows=100):
   """Get a list of places that are contained in a higher level geo places.

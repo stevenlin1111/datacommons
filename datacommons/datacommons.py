@@ -25,8 +25,8 @@ from __future__ import print_function
 from collections import defaultdict
 from . import _auth
 from . import utils
-import pandas as pd
 import json
+import pandas as pd
 
 # Database paths
 _BIG_QUERY_PATH = 'google.com:datcom-store-dev.dc_store_v3'
@@ -40,6 +40,10 @@ _API_ROOT = 'https://datcom-api.appspot.com'
 _SANDBOX_CLIENT_ID = '381568890662-ff9evnle0lj0oqttr67p2h6882d9ensr.apps.googleusercontent.com'
 _SANDBOX_CLIENT_SECRET = '77HJA4S5m48Z98UKkW_o-jAY'
 _SANDBOX_API_ROOT = 'https://datcom-api-sandbox.appspot.com'
+
+_PARENT_TYPES = {
+  'containedInPlace': 'Place'
+}
 
 
 class Client(object):
@@ -83,6 +87,8 @@ class Client(object):
       return self._prop_type[ent_type][property]
     elif not outgoing and property in self._inv_prop_type:
       return self._inv_prop_type[ent_type][property]
+    elif not outgoing and property in _PAREN_TYPES:
+      return _PARENT_TYPES[property]
     return None
 
   def query(self, datalog_query, rows=100):
