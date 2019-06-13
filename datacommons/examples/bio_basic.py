@@ -56,14 +56,14 @@ def main():
   # Example 2: query for experiments published by a specific lab
   frame_2 = datacommons.DCFrame()
   frame_2 = BioExtension(frame_2)
-  frame_2.get_experiments('Experiment', lab_name=['yijun-ruan'])
+  frame_2.get_experiments('Experiment', lab_name=['michael-snyder'])
   frame_2.expand('description', 'Experiment', 'Description')
   print_pandas(2, frame_2.pandas())
 
   # Example 3: query for experiments by assembly
   frame_3 = datacommons.DCFrame()
   frame_3 = BioExtension(frame_3)
-  frame_3.get_experiments('Experiment', assembly=['hg19'], rows=1000)
+  frame_3.get_experiments('Experiment', assembly=['hg19'])
   frame_3.expand('description', 'Experiment', 'Description')
   print_pandas(3, frame_3.pandas())
 
@@ -72,8 +72,7 @@ def main():
   frame_4 = BioExtension(frame_4)
   frame_4.get_experiments('Experiment',
                           bio_class=['primary cell', 'cell line'],
-                          bio_term=['endothelial cell of umbilical vein', 'K562'],
-                          rows=1000)
+                          bio_term=['endothelial cell of umbilical vein', 'K562'])
   frame_4.expand('description', 'Experiment', 'Description')
   print_pandas(4, frame_4.pandas())
 
@@ -96,7 +95,7 @@ def main():
                           assay_category=['Transcription'],
                           bio_class=['cell line'],
                           bio_term=['K562'],
-                          rows=1)
+                          rows=2)
   frame_6.get_bed_files('Experiment', 'BedFile IDs')
   frame_6.get_bed_lines('BedFile IDs')
   print_pandas(6, frame_6.pandas())
@@ -106,30 +105,34 @@ def main():
   # a column with its values.
   prop_info = [
       ('StartPos', 'chromosomeStart', 'Integer'),
-      ('EndPos', 'chromosomeEnd', 'Integer'),
-      ('RGBValue', 'itemRGB', 'Text'),
-      ('ThickStart', 'thickStart', 'Integer'),
-      ('ThickEnd', 'thickEnd', 'Integer'),
+      ('EndPos', 'chromosomeEnd', 'Integer')
   ]
   frame_7 = datacommons.DCFrame()
   frame_7 = BioExtension(frame_7)
-  frame_7.get_experiments('Experiment', lab_name=['yijun-ruan'], rows=40)
-  frame_7.get_bed_files('Experiment', 'BedFile IDs', rows=40)
-  frame_7.expand('name', 'BedFile IDs', 'BedFileName', rows=40)
+
+  # Add two BedFiles from two different experiments.
+  frame_7.add_column('Experiment', 'EncodeExperiment', ['dc/yqbsk0wxt7fw1', 'dc/c6fflyl2r4mwg'])
+  frame_7.add_column('BedFile IDs', 'EncodeBedFile', ['dc/lksxqyd7p54p5', 'dc/2tt3xzzhnfpz2'])
+
+  # Get the bed lines
+  frame_7.expand('name', 'BedFile IDs', 'BedFileName')
   frame_7.get_bed_lines('BedFile IDs',
                         prop_info=prop_info,
                         chromosome=['chr7'],
-                        rows=1000)
+                        rows=5000)
   print_pandas(7, frame_7.pandas())
 
   # Example 8: querying bedlines from multiple files and filtering by chromosome
   # and start-end range.
-  # NOTE: This query takes a bit longer than others due to its size.
   frame_8 = datacommons.DCFrame()
   frame_8 = BioExtension(frame_8)
-  frame_8.get_experiments('Experiment', lab_name=['yijun-ruan'], rows=40)
-  frame_8.get_bed_files('Experiment', 'BedFile IDs', rows=40)
-  frame_8.expand('name', 'BedFile IDs', 'BedFileName', rows=40)
+
+  # Add two BedFiles from two different experiments.
+  frame_8.add_column('Experiment', 'EncodeExperiment', ['dc/yqbsk0wxt7fw1', 'dc/c6fflyl2r4mwg'])
+  frame_8.add_column('BedFile IDs', 'EncodeBedFile', ['dc/lksxqyd7p54p5', 'dc/2tt3xzzhnfpz2'])
+
+  # Filter the bed lines by position and chromosome
+  frame_8.expand('name', 'BedFile IDs', 'BedFileName', rows=2)
   frame_8.get_bed_lines('BedFile IDs',
                         chromosome=['chr7'],
                         start_pos=[5000000],

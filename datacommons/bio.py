@@ -243,7 +243,8 @@ def get_bed_lines(self, seed_col_name, prop_info=DEFAULT_BEDLINE_PROPS, **kwargs
   end_pos_var = None
 
   # Add specific properties to query from the bed line
-  labels, type_hint = {}, {}
+  labels = {seed_col_var: seed_col_name}
+  type_hint = {seed_col_var: seed_col_type}
   for prop_line in prop_info:
     query_var = '?' + prop_line[0].replace(' ', '')
     labels[query_var] = prop_line[0]

@@ -114,8 +114,6 @@ class Client(object):
     """
     assert self._inited, 'Initialization was unsuccessful, cannot execute Query'
 
-    print(datalog_query)
-
     # Append the options
     options = {}
     if self._db_path:
@@ -202,9 +200,9 @@ class DCFrame(object):
                type_hint=None,
                rows=100,
                db_path=None,
-               client_id=_SANDBOX_CLIENT_ID,
-               client_secret=_SANDBOX_CLIENT_SECRET,
-               api_root=_SANDBOX_API_ROOT):
+               client_id=_ENCODE_CLIENT_ID,
+               client_secret=_ENCODE_CLIENT_SECRET,
+               api_root=_ENCODE_API_ROOT):
     """ Initializes the DCFrame.
 
     A DCFrame can also be initialized by providing the file name of a cached

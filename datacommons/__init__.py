@@ -14,6 +14,6 @@
 """Data Commons module."""
 
 from .bio import BioExtension, DEFAULT_BEDLINE_PROPS
-from .datacommons import Client, DCNode, DCFrame
+from .datacommons import Client, DCNode, DCFrame, _ENCODE_CLIENT_ID, _ENCODE_CLIENT_SECRET, _ENCODE_API_ROOT
 from .places import PlacesExtension
 from .utils import DatalogQuery, MeasuredValue
