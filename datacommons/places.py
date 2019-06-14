@@ -28,6 +28,7 @@ _PLACES = {
   'CensusTract': 'County',
   'County': 'State',
   'State': 'Country',
+  'SchoolDistrict': 'County',
   'Country': 'Continent'
 }
 
