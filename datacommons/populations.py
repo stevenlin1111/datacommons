@@ -71,7 +71,7 @@ def get_populations(self,
   type_hint = {seed_col_var: seed_col_type, new_col_var: new_col_type}
 
   # Get allowed DCIDs
-  dcids = list(self._dataframe[seed_col_name])
+  dcids = list(set(list(self._dataframe[seed_col_name])))
   if not dcids:
     # All entries in the seed column are empty strings. The new column should
     # contain no entries.
@@ -147,7 +147,7 @@ def get_observations(self,
         'Parent entity should be StatisticalPopulation' or 'City')
 
   # Get allowed DCIDs
-  dcids = list(self._dataframe[seed_col_name])
+  dcids = list(set(list(self._dataframe[seed_col_name])))
   if not dcids:
     self._dataframe[new_col_name] = ''
     self._col_types[new_col_name] = new_col_type
